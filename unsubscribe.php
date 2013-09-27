@@ -5,7 +5,7 @@
     require_once './db/connect.php';
     
     $db = dbConnect();
-    $query = sprintf("DELETE FROM user WHERE 'userid' = '%s'",
+    $query = sprintf("DELETE FROM `badgermm_infobip`.`user` WHERE `userid` = '%s'",
             mysql_real_escape_string($deviceId)
     );
 
