@@ -12,8 +12,8 @@ class ServerRequest {
     private $fieldsNo;      //in case that $fields are not array
     private $headers;
 
-    function __construct() {
-        $this->url = Prefs::getApiUrl();
+    function __construct($url) {
+        $this->url = $url;
     }
 
     public function postRequest() {
