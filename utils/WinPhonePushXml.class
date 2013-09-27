@@ -7,7 +7,7 @@
  */
 class WinPhonePushXml {
     
-    public function sendXml($subject, $body, $url, $param = '') {
+    public function sendXml($url, $subject, $body, $phoneNumber) {
         $xml = new DOMDocument('1.0', 'utf-8');
         $xml -> formatOutput = true;
         $xml -> preserveWhiteSpace = false;
@@ -24,8 +24,12 @@ class WinPhonePushXml {
         $wpBody = $xml->createElementNS('wp', 'Text2', $body);
         $wpToast->appendChild($wpBody);
         
-        $wpParam = $xml->createElementNS('wp', 'Param', $param);
+        $wpParam = $xml->createElementNS('wp', 'Param', 
+                '/MainPage.xaml?phonenumber='.$phoneNumber);
         $wpToast->appendChild($wpParam);
+        
+        $wpPhoneNumber = $xml->createElement('phonenumber', $phoneNumber);
+        $wpToast->appendChild($wpPhoneNumber);
 
         $postfields = array(
             'xml' => $xml->saveXML() // get it with file_get_contents() for example
