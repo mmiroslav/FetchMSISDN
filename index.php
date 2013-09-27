@@ -13,10 +13,7 @@ function __paymentapi_autoloader($class) {
 }
 
 spl_autoload_register('__paymentapi_autoloader');
+require_once './db/connect.php';
 
-$push = new Push("TEststststts", 111);
-$result = $push->executePush();
-
-var_dump($result);
 ?>
 <a href="mnocallback.php?receiver=385664545&sender=1112223336&when=12312313&text=Nekitexy">Send SMS</a>
