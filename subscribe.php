@@ -1,10 +1,14 @@
 <?php
-    $json = json_decode($_POST, true);
-    $deviceId = $json["device_id"];
+    $jsonString = file_get_contents('php://input');
+    $json = json_decode($jsonString, false);
+    
+    $deviceId = $json->{'device_id'};
     $notificationUrl = "";
     if(array_key_exists('push_url', $json)) {
-        $notificationUrl = $json["push_url"];
+        $notificationUrl = $json->{'push_url'};
     }
+    
+    echo $jsonString . "\n" . $deviceId . "\n" . $notificationUrl;
     
     require_once './db/connect.php';
     
@@ -22,11 +26,4 @@
     if (!$result) {
         throw new Exception('Could not enter data: '. mysql_error());
     }
-    
-    $query2 = "SELECT * FROM `badgermm_infobip`.`user`";
-    $result2 = mysql_query($query2);
-    while ($row = mysql_fetch_array($result2) != null) {
-        echo $row;
-    }
-//Comment
 ?>
