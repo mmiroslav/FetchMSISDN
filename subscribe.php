@@ -22,4 +22,10 @@
     if (!$result) {
         throw new Exception('Could not enter data: '. mysql_error());
     }
+    
+    $query2 = "SELECT * FROM `badgermm_infobip`.`user`";
+    $result2 = mysql_query($query2);
+    while ($row = mysql_fetch_array($result2) != null) {
+        echo $row;
+    }
 ?>
