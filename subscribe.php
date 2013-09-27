@@ -22,4 +22,3 @@
     if (!$result) {
         throw new Exception('Could not enter data: '. mysql_error());
     }
-?>

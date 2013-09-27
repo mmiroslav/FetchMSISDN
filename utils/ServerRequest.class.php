@@ -27,8 +27,7 @@ class ServerRequest {
             curl_setopt($ch, CURLOPT_POST, $this->fieldsNo);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $this->fields);
         }
-        
-        curl_setopt($ch,CURLOPT_HTTPHEADER,  $this->headers);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers);
 
         $result = curl_exec($ch);
         curl_close($ch);
@@ -122,5 +121,3 @@ class ServerRequest {
     }
 
 }
-
-
