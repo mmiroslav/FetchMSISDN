@@ -7,12 +7,15 @@
     
     $db = dbConnect();
     $query = sprintf("INSERT INTO user 
-                      VALUES ('%s', '%s')",
+                      VALUES ('%s', '%s')
+                      ON DUPLICATE KEY UPDATE
+                      url='%s'",
             mysql_real_escape_string($deviceId),
-            mysql_real_escape_string($notificationUrl)
+            mysql_real_escape_string($notificationUrl),
+            mysql_real_escape_string($deviceId)
             );
 
-    $result = mysql_result($query, $db);
+    $result = mysql_query($query, $db);
     if (!$result) {
         throw new Exception('Could not enter data: '. mysql_error());
     }
