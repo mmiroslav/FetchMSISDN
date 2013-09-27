@@ -1,0 +1,50 @@
+<?php
+
+/**
+ * Description of WinPhonePushXml
+ *
+ * @author nmaric
+ */
+class WinPhonePushXml {
+    
+    public function sendXml($subject, $body, $param = '') {
+        $xml = new DOMDocument('1.0', 'utf-8');
+        $xml -> formatOutput = true;
+        $xml -> preserveWhiteSpace = false;
+
+        $wpNotification = $xml->createElementNS('wp', 'Notification');
+        $wpNotification -> setAttribute('xmlns', 'wp', 'WPNotification');
+        
+        $wpToast = $xml->createElementNS('wp', 'Toast');
+        $wpNotification->appendChild($wpToast);
+        
+        $wpTitle = $xml->createElementNS('wp','Text1', $subject);
+        $wpToast->appendChild($wpTitle);
+
+        $wpBody = $xml->createElementNS('wp', 'Text2', $body);
+        $wpToast->appendChild($wpBody);
+        
+        $wpParam = $xml->createElementNS('wp', 'Param', $param);
+        $wpToast->appendChild($wpParam);
+
+        $postfields = array(
+            'xml' => $xml->saveXML() // get it with file_get_contents() for example
+        );
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "http://.php");
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'Content-Type: text/xml',
+            'X-NotificationClass: 2', 
+            'X-WindowsPhone-Target:toast'
+        ));
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postfields);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
+        $ch_result = curl_exec($ch);
+        curl_close($ch);
+        return $ch_result;
+    }
+}
+
+?>
