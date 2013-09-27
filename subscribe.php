@@ -9,7 +9,7 @@
     require_once './db/connect.php';
     
     $db = dbConnect();
-    $query = sprintf("INSERT INTO user 
+    $query = sprintf("INSERT INTO `badgermm_infobip`.`user` (`userid`, `url`)
                       VALUES ('%s', '%s')
                       ON DUPLICATE KEY UPDATE
                       url='%s'",
